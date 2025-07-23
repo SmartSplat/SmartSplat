@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>SmartSplat Image Viewer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="image_gaussians/icon.png">
+    <link rel="stylesheet" href="https://unpkg.com/normalize.css@8/normalize.css">
+    <style>
+        .header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 2em;
+        }
+
+        .icon {
+            width: 196px;
+            height: auto;
+            margin-bottom: 1em;
+        }
+
+        .anon-button {
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 0.6em 1.2em;
+            border-radius: 8px;
+            font-size: 1em;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            margin-top: 0.8em;
+        }
+
+        .anon-button:hover {
+            background-color: #0056b3;
+        }
+        body {
+            font-family: sans-serif;
+            margin: 2em;
+            background: #fafafa;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 1em;
+        }
+        h2 {
+            margin-top: 2em;
+            margin-bottom: 1em;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 0.3em;
+            text-align: center;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+            justify-content: center;
+        }
+        .card {
+            width: 200px;
+            padding: 12px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+        }
+        .card .image {
+            width: 100%;
+            height: 130px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 4px;
+        }
+        .card .name {
+            font-weight: bold;
+            margin: 10px 0 4px;
+            word-break: break-word;
+            text-align: center;
+        }
+        .card .info {
+            color: #555;
+            font-size: 0.85em;
+            white-space: pre-line;
+        }
+    </style>
+</head>
+<body>
+
+
+<div class="header">
+  <img src="image_gaussians/icon.png" alt="SmartSplat Icon" class="icon">
+  <h1>SmartSplat: Feature-Smart Gaussians for Scalable Compression of Ultra-High-Resolution Images</h1>
+  <a class="anon-button" href="https://anonymous.4open.science/r/SmartSplat_Code-0464" target="_blank">
+    Anonymous Code
+  </a>
+</div>
+
+<div id="mainContainer">
+    <!-- Sections for each dataset will be inserted here -->
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", async () => {
+    const mainContainer = document.getElementById("mainContainer");
+
+    //  'DIV2K', 'kodak'
+    const datasetFolders = [
+                            'DIV8K_CR1000',
+                            'DIV8K_CR500',
+                            'DIV8K_CR200',
+                            'DIV8K_CR100',
+                            'DIV8K_CR50',
+                            'DIV8K_CR20',
+                            'DIV16K_CR3000',
+                            'DIV16K_CR500',
+                            'DIV16K_CR200',
+                           ];
+
+    function formatBytes(kb) {
+        if (!kb) return "N/A";
+        const mb = kb / 1024;
+        return mb >= 1 ? mb.toFixed(2) + " MB" : kb.toFixed(1) + " KB";
+    }
+
+    for (const dataset of datasetFolders) {
+        const jsonUrl = `image_gaussians/${dataset}/filelist.json`;
+
+        try {
+            const res = await fetch(jsonUrl);
+            if (!res.ok) throw new Error(`Failed to fetch ${jsonUrl}`);
+            const files = await res.json();
+
+            const section = document.createElement("section");
+            section.style.marginBottom = "3em";
+
+            const title = document.createElement("h2");
+            title.textContent = dataset;
+            section.appendChild(title);
+
+            const container = document.createElement("div");
+            container.className = "container";
+            section.appendChild(container);
+
+            mainContainer.appendChild(section);
+
+            for (const item of files) {
+                if (dataset.includes("DIV16K")) {
+                    const image_folder_name = item.name.split("_")[0];
+                    npzUrl = `image_gaussians/${dataset}/${image_folder_name}.npz`;
+                    imageUrl = `image_gaussians/card_imgs/DIV16K/${item.name}.jpg`;
+                } else {
+                    npzUrl = `image_gaussians/${dataset}/${item.name}.npz`;
+                    imageUrl = `image_gaussians/card_imgs/DIV8K/${item.name}.jpg`;
+                }
+                const card = document.createElement("div");
+                card.className = "card";
+
+                card.innerHTML = `
+                    <p class="name">${item.name}</p>
+                    <a href="viewer.html?file=${encodeURIComponent(npzUrl)}" target="_blank" rel="noopener noreferrer">
+                        <div class="image" style="background-image: url('${imageUrl}')"></div>
+                    </a>
+                    <p class="info">
+                        Resolution: ${item.resolution?.[0] ?? "?"} × ${item.resolution?.[1] ?? "?"}<br>
+                        PNG: ${formatBytes(item.png_size)}<br>
+                        #Gaussians: ${item.num_gaussians ?? "?"}
+                    </p>
+                `;
+
+                container.appendChild(card);
+            }
+
+        } catch (err) {
+            console.warn(`Error loading ${dataset}:`, err);
+            const error = document.createElement("p");
+            error.textContent = `Failed to load dataset: ${dataset}`;
+            mainContainer.appendChild(error);
+        }
+    }
+});
+</script>
+
+
+</body>
+</html>

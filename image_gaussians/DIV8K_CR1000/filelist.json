@@ -1,0 +1,146 @@
+[
+  {
+    "name": "0001",
+    "png_size": 16923.61,
+    "resolution": [
+      5760,
+      5376
+    ],
+    "num_gaussians": 13271
+  },
+  {
+    "name": "0138",
+    "png_size": 1589.27,
+    "resolution": [
+      2880,
+      1920
+    ],
+    "num_gaussians": 2369
+  },
+  {
+    "name": "0491",
+    "png_size": 26958.87,
+    "resolution": [
+      6720,
+      5376
+    ],
+    "num_gaussians": 15482
+  },
+  {
+    "name": "0536",
+    "png_size": 26100.93,
+    "resolution": [
+      5184,
+      6720
+    ],
+    "num_gaussians": 14929
+  },
+  {
+    "name": "0666",
+    "png_size": 37666.63,
+    "resolution": [
+      6720,
+      6720
+    ],
+    "num_gaussians": 19353
+  },
+  {
+    "name": "0849",
+    "png_size": 22125.11,
+    "resolution": [
+      4416,
+      6720
+    ],
+    "num_gaussians": 12718
+  },
+  {
+    "name": "0952",
+    "png_size": 17722.52,
+    "resolution": [
+      6720,
+      3840
+    ],
+    "num_gaussians": 11059
+  },
+  {
+    "name": "1040",
+    "png_size": 23907.86,
+    "resolution": [
+      6720,
+      4416
+    ],
+    "num_gaussians": 12718
+  },
+  {
+    "name": "1067",
+    "png_size": 18646.7,
+    "resolution": [
+      6720,
+      4416
+    ],
+    "num_gaussians": 12718
+  },
+  {
+    "name": "1107",
+    "png_size": 18288.0,
+    "resolution": [
+      4416,
+      6720
+    ],
+    "num_gaussians": 12718
+  },
+  {
+    "name": "1268",
+    "png_size": 14967.43,
+    "resolution": [
+      6720,
+      4608
+    ],
+    "num_gaussians": 13271
+  },
+  {
+    "name": "1280",
+    "png_size": 20341.38,
+    "resolution": [
+      6720,
+      3840
+    ],
+    "num_gaussians": 11059
+  },
+  {
+    "name": "1329",
+    "png_size": 15946.14,
+    "resolution": [
+      6720,
+      4992
+    ],
+    "num_gaussians": 14376
+  },
+  {
+    "name": "1404",
+    "png_size": 15769.74,
+    "resolution": [
+      4992,
+      7680
+    ],
+    "num_gaussians": 16430
+  },
+  {
+    "name": "1447",
+    "png_size": 33870.98,
+    "resolution": [
+      7680,
+      5952
+    ],
+    "num_gaussians": 19590
+  },
+  {
+    "name": "1454",
+    "png_size": 22917.85,
+    "resolution": [
+      4992,
+      7680
+    ],
+    "num_gaussians": 16430
+  }
+]
